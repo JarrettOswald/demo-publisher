@@ -1,0 +1,80 @@
+openapi: 3.0.0
+
+info:
+  version: 0.0.1
+  title: Posts
+  description: The posts service
+
+tags:
+  - name: post
+
+paths:
+  /service/post/{postId}:
+    get:
+      summary: Post by id
+      tags:
+        - post
+      description: This is description
+      operationId: getPostById
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+        "404":
+          description: Not faund
+          content:
+            text/plan:
+              schema:
+                type: string
+
+  /service/post:
+    post:
+      summary: Create post
+      tags:
+        - Library
+      description: This is description
+      operationId: newPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+
+      responses:
+        "200":
+          description: This means is ok
+          content:
+            text/plan:
+              schema:
+                type: string
+
+components:
+  schemas:
+    Post:
+      description: model post
+      type: object
+      required:
+        - userId
+        - title
+        - body
+      properties:
+        userId:
+          description: user id
+          type: integer
+          format: int64
+        title:
+          description: title post
+          type: string
+        body:
+          description: body post
+          type: string
